@@ -1,21 +1,13 @@
 // ID3 ID2 ID1 ID0 EXT RTR DTA0 DTA1 DTA2 DTA3 DTA4 DTA5 DTA6 DTA7
 
 #include <Serial_CAN_Module.h>
-#include <SoftwareSerial.h>
 #include <HardwareSerial.h>
 
-void Serial_CAN::begin(int can_tx, int can_rx, unsigned long baud)
+void Serial_CAN::begin(int serial_id, unsigned long baud)
 {
-    softwareSerial = new SoftwareSerial(can_tx, can_rx);
-    softwareSerial->begin(baud);
-    canSerial = softwareSerial;
-}
-
-void Serial_CAN::begin(SoftwareSerial &serial, unsigned long baud)
-{
-    serial.begin(baud);
-    softwareSerial = &serial;
-    canSerial = &serial;
+    hardwareSerial = new HardwareSerial(serial_id);
+    hardwareSerial->begin(baud);
+    canSerial = hardwareSerial;
 }
 
 void Serial_CAN::begin(HardwareSerial &serial, unsigned long baud)
@@ -200,11 +192,7 @@ unsigned char Serial_CAN::baudRate(unsigned char rate)
 
 void Serial_CAN::selfBaudRate(unsigned long baud)
 {
-    if(softwareSerial)
-    {
-        softwareSerial->begin(baud);
-    }
-    else if(hardwareSerial)
+    if(hardwareSerial)
     {
         hardwareSerial->begin(baud);
     }
