@@ -10,6 +10,8 @@ CAN Bus is a messaging protocol system that lets various microcontrollers and se
 
 The Serial CAN Bus module is based on MCP2515 CAN controller and MCP2551 CAN transceiver provides speed up to 1Mb/s. It also has a terminal block so you can connect to your vehicle’s OBD-II port with two wires.
 
+This verison was modified to only support hardware serial for compatibility with ESP32.
+
 With this library, you can,
 
 1. Send a CAN2.0 frame
